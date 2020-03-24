@@ -1,0 +1,96 @@
+USE [WheyMen]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[customer](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](60) NOT NULL,
+	[email] [varchar](60) NULL,
+	[username] [varchar](30) NULL,
+	[pwd] [nvarchar](20) NOT NULL,
+	[last_name] [varchar](30) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[inventory](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[STORE_ID] [int] NOT NULL,
+	[name] [varchar](50) NOT NULL,
+	[qty] [int] NOT NULL,
+	[price] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[loc](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[order](
+	[id] [int] IDENTITY(100,1) NOT NULL,
+	[cust_id] [int] NOT NULL,
+	[loc_id] [int] NOT NULL,
+	[total] [int] NOT NULL,
+	[timestamp] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[order_item](
+	[oid] [int] NOT NULL,
+	[pid] [int] NOT NULL,
+	[qty] [int] NOT NULL
+) ON [PRIMARY]
+GO
+
+
+--Foreign keys
+
+ALTER TABLE [dbo].[order_item]  WITH CHECK ADD FOREIGN KEY([oid])
+REFERENCES [dbo].[order] ([id])
+GO
+
+ALTER TABLE [dbo].[order_item]  WITH CHECK ADD FOREIGN KEY([pid])
+REFERENCES [dbo].[inventory] ([ID])
+GO
+
+ALTER TABLE [dbo].[order] ADD  CONSTRAINT [WM_DBO_ORDER_Column_B]  DEFAULT ((0)) FOR [total]
+GO
+
+ALTER TABLE [dbo].[order]  WITH CHECK ADD FOREIGN KEY([cust_id])
+REFERENCES [dbo].[customer] ([id])
+GO
+
+ALTER TABLE [dbo].[order]  WITH CHECK ADD FOREIGN KEY([loc_id])
+REFERENCES [dbo].[loc] ([ID])
+GO
+
+ALTER TABLE [dbo].[inventory]  WITH CHECK ADD FOREIGN KEY([STORE_ID])
+REFERENCES [dbo].[loc] ([ID])
+GO
+
+
+
+
