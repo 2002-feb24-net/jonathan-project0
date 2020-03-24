@@ -39,24 +39,52 @@ namespace Manager
             });
         }
 
+        public string EnterPass()
+        {
+            string pass = "";
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    pass += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && pass.Length > 0)
+                    {
+                        pass = pass.Substring(0, (pass.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                    else if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
+            return pass;
+        }
+
         public void VerifyUser()
         {
-            string pwd = "", input = "";
+            string pass = "", input = "";
             bool verified = false;
             do
             {
                 Console.WriteLine("Enter username or email:");
                 input = Console.ReadLine().Trim();
                 Console.WriteLine("Enter password:");
-                pwd = Console.ReadLine().Trim();
-                if(pwd != DAL.VerifyCustomer(input,out current_id))
+                pass = EnterPass();
+                if (pass != DAL.VerifyCustomer(input,out current_id))
                 {
                     Console.WriteLine("Invalid username/pwd combo");
                 }
                 else
                 {
                     verified = true;
-                    Console.WriteLine($"Logging in as {input} with id {current_id}");
+                    Console.WriteLine($"\nLogging in as {input} with id {current_id}");
                 }
 
             } while (!verified);
@@ -79,7 +107,6 @@ namespace Manager
                         Console.WriteLine("Username/email not found");
                     }
                 }
-                
             }
             else
             {
@@ -90,8 +117,8 @@ namespace Manager
                 }
                 
             }
-
         }
+
         public int ValidateCustomer(string input)
         {
             try
