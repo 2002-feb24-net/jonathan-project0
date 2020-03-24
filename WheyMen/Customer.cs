@@ -225,7 +225,7 @@ namespace Manager
 
         public bool AddCust()
         {
-            string first_name = "", last_name = "", user_name = "", email = "", pwd = "", ver_pwd = "";
+            string first_name = "", last_name = "", user_name = "", email = "", pwd = "", ver_pwd = " ";
             Console.WriteLine("Adding user, enter empty string at any time to quit:");
             //Short circuit to quit if user enters empty string
             if (Wrappers.ReadString("Enter first name", out first_name) ||
@@ -240,14 +240,11 @@ namespace Manager
             }
             else
             {
-                while (pwd != ver_pwd)
+                do
                 {
-                    if (!Wrappers.ReadString("Enter password", out pwd) || Wrappers.ReadString("Verify password", out ver_pwd))
-                    {
-                        Console.WriteLine("Quiting");
-                        return false;
-                    }
-                }
+                    pwd = EnterPass();
+                    ver_pwd = EnterPass();
+                } while (pwd != ver_pwd);
                 if (ValidateCustomerInfo(first_name, last_name, user_name, email, pwd))
                 {
                     current_id=DAL.AddCust(first_name, last_name, user_name, email, pwd);
