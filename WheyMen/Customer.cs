@@ -27,7 +27,7 @@ namespace Manager
 
         static void PrintCust(Customer cust)
         {
-            Console.WriteLine("First Name:{}, Last Name:{}, Email: {} ");
+            Console.WriteLine($"First Name:{cust.Name}, Last Name:{cust.LastName}, Email: {cust.Email} ");
         }
         static void PrintCustomers()
         {
