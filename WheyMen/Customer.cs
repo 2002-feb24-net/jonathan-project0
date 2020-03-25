@@ -183,12 +183,11 @@ namespace Manager
             _locManager.PrintInventory(store_id);
 
             int oid = _ordManager.Create(current_id, store_id);
-            Decimal total = 0,price=0;
             while(true)
             {
                 if(GetOrderItem(store_id, oid))
                 {
-                    total += price;
+                    ;
                 }
                 else
                 {

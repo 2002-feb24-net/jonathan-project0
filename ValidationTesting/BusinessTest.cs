@@ -85,14 +85,14 @@ namespace ValidationTesting
             var item = new OrderItem //value = 15.2*4 = 60.8
             {
                 Qty = 4,
-                Pid = 1,
+                Pid = 5,
                 Oid = order_1.Id
             };
 
             var item_2 = new OrderItem //value 3*12 = 36
             {
                 Qty = 3,
-                Pid = 2,
+                Pid = 6,
                 Oid = order_1.Id
             };
             //test total is 60.8 + +36 = 96.8
@@ -108,35 +108,6 @@ namespace ValidationTesting
             _context.Remove(item_2);
             _context.Remove(order_1);
             _context.SaveChanges();
-        }
-        [Fact]
-        public void TestDuplicateName()
-        {
-            var cust_1 = new Customer
-            {
-                Name = "alex",
-                Email = "abc@gmail.com",
-                Username = "asdsa",
-                Pwd = "fsd"
-            };
-            var cust_2 = new Customer
-            {
-                Name = "alex",
-                Email = "abc@gmail.com",
-                Username = "asdsaasd",
-                Pwd = "asv"
-            };
-            try
-            {
-                _context.Customer.AddRange(cust_1, cust_2);
-            }
-            catch(DbUpdateException)
-            {
-                Assert.True(1 == 1);//exception caught insert failed
-            }
-            Assert.True(1 == 0);
-            
-            
         }
     }
 }
