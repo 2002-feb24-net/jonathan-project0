@@ -174,10 +174,35 @@ namespace Manager
                 Console.WriteLine("Name or ID not valid");
             }
         }
-       
+        public void DisplayOrderStats()
+        {
+            var ordList = DAL.GetOrders("-1");
+            Decimal total = 0,avg = 0;
+            foreach(var ord in ordList)
+            {
+                total += ord.Total.GetValueOrDefault();
+            }
+            avg = total / _custMgr.NumberOfCustomers();
+            var avg_str = avg.ToString("#.##");
+            Console.WriteLine($"Total Amount Spent: {total}\nAverage Spending Per Customer: {avg_str}");
+            var orderCust = ordList.GroupBy(o=>o.CustId)
+                                    .Select(o => new
+                                    {
+                                        Id = o.Key,
+                                        Value = o.Sum(s => s.Total)
+
+                                    }).OrderBy(x => x.Value)
+                                    .ToList();
+            Console.WriteLine("\n\n--------------\nCustomers sorted by amount spent\n--------------\nID | Amount Spent");
+            foreach(var oc in orderCust)
+            {
+                Console.WriteLine(oc.Id+" | "+ oc.Value);
+            }
+
+        }
         public void DisplayOptions()
         {
-            Console.WriteLine("1: Search orders by location\n2: Search orders by customer\n3: Get order details\n4: Print all orders");
+            Console.WriteLine("1: Search orders by location\n2: Search orders by customer\n3: Get order details\n4: Print all orders\n5: Display order stats");
             Console.WriteLine("Enter the number for your option:");
             while(true)
             {
@@ -192,6 +217,9 @@ namespace Manager
                         return;
                     case 3:
                         PrintOrders(3);
+                        return;
+                    case 5:
+                        DisplayOrderStats();
                         return;
                     default:
                         PrintOrders(0);

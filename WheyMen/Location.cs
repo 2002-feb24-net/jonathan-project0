@@ -118,7 +118,7 @@ namespace Manager
             Console.WriteLine("\n\n");
             while (true)
             {
-                Console.WriteLine("1: Display Order History");
+                Console.WriteLine("1: Add item");
                 Console.Write("Enter the number for your option: ");
                 int choice = Wrappers.ReadInt();
                 switch (choice)

@@ -10,7 +10,14 @@ namespace WheyMen.DAL
 {
     public class CustomerDAL : ICustomerDAL
     {
-    
+        public int NumberOfCustomers()
+        {
+            using(var context = new WheyMenContext())
+            {
+                return context.Customer.ToList().Count;
+            }
+            
+        }
         public bool CheckUnique(int mode, string check)
         {
             using (var context = new WheyMenContext())

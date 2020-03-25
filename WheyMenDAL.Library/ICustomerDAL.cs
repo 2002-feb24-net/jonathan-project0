@@ -8,6 +8,11 @@ namespace WheyMenDAL.Library
     public interface ICustomerDAL
     {
         /// <summary>
+        /// Returns number of customers
+        /// </summary>
+        /// <returns></returns>
+        int NumberOfCustomers();
+        /// <summary>
         /// Checks if a given string is unique among customers
         /// </summary>
         /// <param name="mode">1: checks strings against all usernames, 2: against all emails</param>

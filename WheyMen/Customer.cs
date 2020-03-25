@@ -269,6 +269,10 @@ namespace Manager
                 PrintCust(cust);
             }
         }
+        public int NumberOfCustomers()
+        {
+           return DAL.NumberOfCustomers();
+        }
         public void DisplayOptions()
         {
             Console.WriteLine("\n\n");
