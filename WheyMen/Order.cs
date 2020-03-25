@@ -110,7 +110,7 @@ namespace Manager
 
         public void PrintOrder(Order ord)
         {
-            Console.WriteLine($"Order ID:{ord.Id,6} Customer:{ord.Cust.Name,9} Location:{ord.Loc.Name,9} Price: {ord.Total,5}, Order Received:{ord.Timestamp,15}");
+            Console.WriteLine($"Order ID:{ord.Id,6} Customer:{ord.Cust.Name,5} {ord.Cust.LastName} Location:{ord.Loc.Name,9} Price: {ord.Total,5}, Order Received:{ord.Timestamp,15}");
             PrintOrderItems(ord);
         }
         void GetOrderParam(List<Order> ordList)

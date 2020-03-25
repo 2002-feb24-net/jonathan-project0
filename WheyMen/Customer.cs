@@ -91,31 +91,30 @@ namespace Manager
         }
         public void Login()
         {
-            Console.WriteLine("1: Login\n2: Add user");
-            int input = Wrappers.ReadInt();
-            if (input == 1)
+            bool loggingIn = true;
+            while (loggingIn)
             {
-                while(true)
+                Console.WriteLine("1: Login\n2: Add user");
+                int input = Wrappers.ReadInt();
+                if (input == 1)
                 {
-                    try
+                    while (true)
                     {
-                        VerifyUser();
-                        return;
-                    }
-                    catch(NullReferenceException)
-                    {
-                        Console.WriteLine("Username/email not found");
+                        try
+                        {
+                            VerifyUser();
+                            return;
+                        }
+                        catch (NullReferenceException)
+                        {
+                            Console.WriteLine("Username/email not found");
+                        }
                     }
                 }
-            }
-            else
-            {
-                bool user_added = false;
-                while(!user_added)
+                else
                 {
-                    user_added = AddCust();
+                    if (AddCust()) return;
                 }
-                
             }
         }
 
@@ -231,9 +230,7 @@ namespace Manager
             if (Wrappers.ReadString("Enter first name", out first_name) ||
                 Wrappers.ReadString("Enter last name", out last_name) ||
                  Wrappers.ReadString("Enter username", out user_name) ||
-                  Wrappers.ReadString("Enter email", out email) ||
-                   Wrappers.ReadString("Enter password", out pwd) ||
-                    Wrappers.ReadString("Verify password", out ver_pwd))
+                  Wrappers.ReadString("Enter email", out email))
             {
                 Console.WriteLine("Quiting");
                 return false;
@@ -242,7 +239,9 @@ namespace Manager
             {
                 do
                 {
+                    Console.WriteLine("Enter password");
                     pwd = EnterPass();
+                    Console.WriteLine("\nVerify password");
                     ver_pwd = EnterPass();
                 } while (pwd != ver_pwd);
                 if (ValidateCustomerInfo(first_name, last_name, user_name, email, pwd))

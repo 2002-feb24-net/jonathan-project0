@@ -19,6 +19,10 @@ public static class Wrappers
             {
                 Console.WriteLine("Please enter only numbers");
             }
+            catch(OverflowException)
+            {
+                Console.WriteLine("Number too large");
+            }
         } while (true && reprompt);
         return -1;
     }
