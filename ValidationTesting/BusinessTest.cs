@@ -78,6 +78,7 @@ namespace ValidationTesting
             {
                 CustId = 1,
                 LocId = 1,
+                Total = 0,
                 Timestamp = DateTime.Now,
             };
             _context.Order.Add(order_1);
@@ -101,7 +102,7 @@ namespace ValidationTesting
             var order = _context.Order.Find(order_1.Id);
             _context.Entry<Order>(order_1).Reload();
             output.WriteLine($"o1.id:{order_1.Id} total:"+order_1.Total.ToString());
-            Assert.True(order.Total==(Decimal)96.8);
+            Assert.True(order.Total==(Decimal)81.6);
 
             //remove added order/order lines
             _context.Remove(item);

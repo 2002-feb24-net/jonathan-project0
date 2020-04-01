@@ -208,7 +208,7 @@ namespace Manager
                 Console.WriteLine("Invalid username.");
                 return false;
             }
-            if (!CustomerInfoValidation.ValidateEmail(email)||!DAL.CheckUnique(2,uname))
+            if (!CustomerInfoValidation.ValidateEmail(email)||!DAL.CheckUnique(2,email))
             {
                 Console.WriteLine("Invalid email.");
                 return false;

@@ -23,7 +23,6 @@ namespace WheyMen.DAL
                 to_update.Qty -= qty;
                 context.SaveChanges();
             }
-
         }
         public List<Inventory> GetInventory(int id)
         {
