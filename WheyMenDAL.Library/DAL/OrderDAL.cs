@@ -61,6 +61,7 @@ namespace WheyMen.DAL
                 {
                     CustId = cid,
                     LocId = lid,
+                    Total = 0,
                     Timestamp = DateTime.Now,
                 };
                 context.Order.Add(new_order);

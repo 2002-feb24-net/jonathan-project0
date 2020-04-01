@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,8 +51,15 @@ namespace WheyMen.DAL
             };
             using (var context = new WheyMenContext())
             {
-                context.Customer.Add(new_cust);
-                context.SaveChanges();
+                try
+                {
+                    context.Customer.Add(new_cust);
+                    context.SaveChanges();
+                }
+                catch(DbUpdateException)
+                {
+                    Console.WriteLine("Email/username already exists");
+                }
             }
             return new_cust.Id;
         }
